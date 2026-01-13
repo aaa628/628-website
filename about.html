@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — 628 Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      font-family: 'Sora', sans-serif;
+      background-color: #121212;
+      color: #ffffff;
+      height: 100%;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 100vh;
+      padding: 2rem;
+      animation: pageFadeIn 1.2s ease-in-out;
+      position: relative;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      position: relative;
+      z-index: 10;
+      animation: slideInTop 1s ease-out;
+      background: rgba(18, 18, 18, 0.85);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 255, 247, 0.15);
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      transition: transform 0.3s ease, text-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .logo:hover, .logo:focus { transform: scale(1.1) rotate(-1deg); outline: none; }
+    nav { display: flex; gap: 2rem; }
+    nav a {
+      text-decoration: none; color: #fff; font-weight: 500; position: relative;
+      padding: 0.25rem 0.15rem; border-radius: 6px;
+      transition: color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer; outline-offset: 3px;
+    }
+    nav a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; width: 0%; height: 2px;
+      background: #00fff7; transition: width 0.4s ease; border-radius: 2px;
+    }
+    nav a:hover, nav a:focus {
+      color: #00fff7; transform: scale(1.1); box-shadow: 0 0 12px #00fff7; outline: none;
+    }
+    nav a:hover::after, nav a:focus::after { width: 100%; }
+    nav a:focus { box-shadow: none !important; color: #00fff7; transform: scale(1.1);}
+    .hero {
+      flex-grow: 1; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; text-align: center;
+      padding: 4rem 2rem 2rem 2rem; animation: fadeIn 2s ease-in-out;
+      position: relative; z-index: 2; max-width: 1200px; margin: 0 auto;
+    }
+    .hero h1 {
+      font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 4px;
+      transition: transform 0.4s ease, text-shadow 0.4s ease;
+      animation: zoomFade 1.6s ease; cursor: default; user-select: none;
+    }
+    .hero h2 {
+      font-size: 1.3rem; font-weight: 600; color: #bfc6cc; margin-bottom: 2.5rem;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      animation: slideInBottom 2s ease-out; max-width: 520px; cursor: default; user-select: none;
+    }
+    .card-grid {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.8rem;
+      margin-bottom: 2.3rem;
+    }
+    .card-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 3rem;
+      width: 100%;
+      max-width: 1300px;
+    }
+    .proj-card {
+      background: rgba(255,255,255,0.02);
+      border-radius: 17px;
+      box-shadow: 0 2px 16px 0 #00fff71d;
+      width: 500px;
+      min-width: 300px;
+      max-width: 600px;
+      padding: 1.1rem 2.2rem 1.1rem 2.2rem;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      min-height: 90px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .proj-card h3, .proj-card ul, .proj-card p { transition: transform 0.3s; }
+    .proj-card:hover, .proj-card:focus { transform: scale(1.04) translateY(-4px);}
+    .proj-card:hover h3, .proj-card:focus h3,
+    .proj-card:hover ul, .proj-card:focus ul,
+    .proj-card:hover p, .proj-card:focus p { transform: scale(1.03);}
+    .proj-card h3 {
+      font-size: 1.18rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; letter-spacing: 1.1px;
+    }
+    .proj-card ul {
+      margin-bottom: 0.3rem;
+      padding-left: 1.2rem;
+      color: #eaeaea;
+    }
+    .proj-card ul li {
+      margin-bottom: 0.3em;
+      line-height: 1.4;
+      font-size: 1.01rem;
+    }
+    .proj-card p, .proj-card li { font-size: 1.05rem; color: #eaeaea; }
+    .card-row .proj-card:nth-child(2) { margin-top: 2.3rem; }
+    @media (max-width: 1200px) {
+      .proj-card { width: 90vw; min-width: 0; max-width: 99vw;}
+      .card-row { gap: 2rem; }
+    }
+    @media (max-width: 950px) {
+      .card-row {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem 0;
+        flex-wrap: nowrap;
+      }
+      .card-row .proj-card,
+      .card-row .proj-card:nth-child(2) {
+        margin-top: 0 !important;
+        width: 98vw;
+        max-width: 99vw;
+      }
+    }
+    .note {
+      text-align: center;
+      color: #00fff7;
+      font-weight: 600;
+      margin-top: 2.4rem;
+      margin-bottom: 1.5rem;
+      font-size: 1.08rem;
+      letter-spacing: 1.5px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 1rem;
+      color: #777;
+      animation: fadeIn 2.5s ease-in-out;
+      transition: color 0.4s ease, transform 0.3s ease;
+      cursor: default;
+      user-select: none;
+    }
+    .footer:hover { color: #00fff7; transform: scale(1.05);}
+    .social-icons {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 20;
+    }
+    .social-icons a {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      background: #1e1e1e;
+      box-shadow: 0 0 8px rgba(0,255,247,0.2);
+      color: #00fff7;
+      text-decoration: none;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+    }
+    .social-icons a svg { width: 22px; height: 22px; fill: currentColor; transition: fill 0.3s ease; }
+    .social-icons a:hover {
+      background-color: #00fff7;
+      box-shadow: 0 0 15px #00fff7;
+      color: #121212;
+      transform: scale(1.15);
+      outline: none;
+    }
+    .social-icons a:focus {
+      outline: none;
+      box-shadow: none;
+      background-color: #1e1e1e;
+      color: #00fff7;
+      transform: none;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(30px);} to { opacity: 1; transform: translateY(0);} }
+    @keyframes zoomFade { from { transform: scale(0.9); opacity: 0;} to { transform: scale(1); opacity: 1;} }
+    @keyframes slideInTop { from { transform: translateY(-60px); opacity: 0;} to { transform: translateY(0); opacity: 1;} }
+    @keyframes slideInBottom { from { transform: translateY(60px); opacity: 0;} to { transform: translateY(0); opacity: 1;} }
+    @keyframes pageFadeIn { from { opacity: 0;} to { opacity: 1;} }
+    @media (max-width: 700px) {
+      .hero { padding: 2.5rem 0.5rem 1.5rem 0.5rem; }
+      .proj-card { padding: 1.1rem 0.7rem 1.1rem 0.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" tabindex="0">628 Studio</div>
+    <nav>
+      <a href="file:///C:/Desktop/PJ_0/website/pj_0.html" tabindex="0">Home</a>
+      <a href="file:///C:/Desktop/PJ_0/website/project.html" tabindex="0">Project</a>
+      <a href="file:///C:/Desktop/PJ_0/website/about.html" tabindex="0" class="active">About</a>
+      <a href="file:///C:/Desktop/PJ_0/website/test_0.html" tabindex="0">Contact</a>
+    </nav>
+  </header>
+  <main class="hero">
+    <div class="section-label">ABOUT</div>
+    <h1>Who We Are</h1>
+    <h2>Creators of pj_0 (Project Zero)</h2>
+    <div class="card-grid">
+      <div class="card-row">
+        <div class="proj-card">
+          <h3>628 Studio</h3>
+          <ul>
+            <li>Independent game studio founded by Abdul Muqeet (8th grader).</li>
+            <li>Co-piloted by Farhan, bringing creative ideas and honest feedback.</li>
+            <li>We build ambitious, anime-inspired worlds in Unreal Engine 5.</li>
+          </ul>
+        </div>
+        <div class="proj-card">
+          <h3>Our Mission</h3>
+          <ul>
+            <li>To create the ninja RPG we always dreamed of.</li>
+            <li>Freedom, deep combat, and player-driven stories.</li>
+            <li>Original lore, not just another copy.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-row">
+        <div class="proj-card">
+          <h3>The Team</h3>
+          <ul>
+            <li><b>Abdul Muqeet</b> — Founder, designer, world builder, scripter, dreamer.</li>
+            <li><b>haziq</b> — Co-pilot, blender artist, secondry animater, tester</li>
+            <li><b>musab</b>— Co-pilot, secondry blender artist, main animater,rigging artist </li></li>
+          </ul>
+        </div>
+        <div class="proj-card">
+          <h3>Why We Build</h3>
+          <ul>
+            <li>Started pj_0 to turn a dream into a real, living world.</li>
+            <li>We learn, adapt, and grow with every challenge.</li>
+            <li>Every player should feel their story matters.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card-row">
+        <div class="proj-card">
+          <h3>What Makes Us Different</h3>
+          <ul>
+            <li>Original systems, not just Naruto re-skins.</li>
+            <li>Emphasis on progression, exploration, and meaningful choices.</li>
+            <li>We build with the community at every step.</li>
+          </ul>
+        </div>
+        <div class="proj-card">
+          <h3>Our Journey</h3>
+          <ul>
+            <li>2024: Studio founded, vision set.</li>
+            <li>2025: Project Zero planning and development begin.</li>
+            <li>It’s just the start—more coming soon!</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Timeline / Roadmap Row -->
+      <div class="card-row">
+        <div class="proj-card">
+          <h3>Project Roadmap</h3>
+          <ul>
+            <li><b>2024 Q2:</b> 628 Studio founded, dream and vision formed</li>
+            <li><b>2024 Q3:</b> Planning & worldbuilding for pj_0 begins</li>
+            <li><b>2024 Q4:</b> Core game systems drafted, map concepts and lore written</li>
+            <li><b>2025 Q1:</b> Learning Unreal Engine 5, first builds and technical tests</li>
+            <li><b>2025 Q2:</b> Leaf Village landscape and core gameplay prototyping</li>
+            <li><b>2025 Q3:</b> Quests, clans, and chakra systems implementation</li>
+            <li><b>2025 Q4:</b> Closed playtests, feedback, and polish</li>
+            <li><b>Future:</b> Open playtest, expansions, seasonal events, more villages & story</li>
+          </ul>
+        </div>
+        <div class="proj-card">
+          <h3>How We Work</h3>
+          <ul>
+            <li>Build, test, learn, repeat — always improving</li>
+            <li>Share progress & listen to feedback from players</li>
+            <li>Dream big but take it step by step</li>
+            <li>The journey is as important as the destination</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      Created by students, fueled by a dream.
+    </div>
+  </main>
+  <footer class="footer">
+    © 2025, 628 Studio — All rights reserved.
+  </footer>
+  <div class="social-icons" aria-label="Social Media Links">
+    <a href="https://github.com/aaa628" target="_blank" rel="noopener noreferrer" aria-label="GitHub" tabindex="0">
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.207 11.387.6.11.793-.26.793-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.085 1.838 1.238 1.838 1.238 1.07 1.835 2.807 1.305 3.492.998.108-.775.42-1.305.763-1.605-2.665-.3-5.467-1.337-5.467-5.93 0-1.31.47-2.38 1.235-3.22-.125-.303-.535-1.522.115-3.176 0 0 1.005-.322 3.3 1.23a11.5 11.5 0 0 1 3.003-.404c1.02.005 2.045.138 3.003.404 2.28-1.552 3.285-1.23 3.285-1.23.655 1.654.245 2.873.12 3.176.77.84 1.23 1.91 1.23 3.22 0 4.61-2.807 5.625-5.48 5.92.43.37.815 1.1.815 2.22 0 1.606-.015 2.896-.015 3.286 0 .32.19.695.8.575C20.565 21.796 24 17.298 24 12c0-6.627-5.373-12-12-12z"/></svg>
+    </a>
+    <a href="https://x.com/_aaa628" target="_blank" rel="noopener noreferrer" aria-label="X" tabindex="0">
+      <svg viewBox="0 0 1200 1227" width="22" height="22" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <title>X</title>
+        <path d="M1142.59 0H902.857c-19.803 0-28.241 23.881-38.893 38.895L600.004 376.42 336.018 38.895C325.366 23.881 316.928 0 297.125 0H57.412C20.049 0 2.881 41.074 24.496 71.883L472.144 651.5 24.496 1155.117C2.881 1185.927 20.049 1227 57.412 1227h239.713c19.803 0 28.241-23.881 38.893-38.895l263.986-337.526 263.986 337.526c10.652 15.014 19.09 38.895 38.893 38.895h239.713c37.363 0 54.531-41.073 32.916-71.883L727.864 651.5l447.648-579.618C1197.121 41.074 1179.953 0 1142.59 0z"/>
+      </svg>
+    </a>
+  </div>
+  <script>
+    // Amber Particle Background (firefly/ember effect)
+    (function () {
+      const canvas = document.createElement('canvas');
+      canvas.style.position = 'fixed';
+      canvas.style.zIndex = 0;
+      canvas.style.top = 0;
+      canvas.style.left = 0;
+      canvas.style.width = '100vw';
+      canvas.style.height = '100vh';
+      canvas.style.pointerEvents = 'none';
+      canvas.style.opacity = 0.9;
+      document.body.prepend(canvas);
+
+      const ctx = canvas.getContext('2d');
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      // Particle settings
+      const PARTICLE_COUNT = 38;
+      const particles = [];
+      function randomFloat(a, b) { return a + (b - a) * Math.random(); }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push({
+          x: randomFloat(0, width),
+          y: randomFloat(0, height),
+          r: randomFloat(2.5, 4.5),
+          dx: randomFloat(-0.15, 0.15),
+          dy: randomFloat(-0.04, 0.04),
+          flicker: Math.random() * Math.PI * 2,
+          hue: randomFloat(30, 54), // golden amber range
+          alpha: randomFloat(0.3, 0.7)
+        });
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        for (const p of particles) {
+          // Flicker effect
+          const flick = 0.5 + 0.5 * Math.sin(performance.now() / 700 + p.flicker);
+          const a = p.alpha * flick;
+
+          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2);
+          grad.addColorStop(0, `hsla(${p.hue}, 100%, 60%, ${a})`);
+          grad.addColorStop(0.6, `hsla(${p.hue}, 100%, 60%, ${a * 0.4})`);
+          grad.addColorStop(1, `hsla(${p.hue}, 100%, 60%, 0)`);
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * flick, 0, Math.PI * 2);
+          ctx.fillStyle = grad;
+          ctx.fill();
+        }
+      }
+
+      function update() {
+        for (const p of particles) {
+          p.x += p.dx;
+          p.y += p.dy;
+          // Drift and wrap around
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+          if (p.y < -10) p.y = height + 10;
+          if (p.y > height + 10) p.y = -10;
+        }
+      }
+
+      function loop() {
+        update();
+        draw();
+        requestAnimationFrame(loop);
+      }           
+      loop();
+    })();
+  </script>
+</body>
+</html>s
